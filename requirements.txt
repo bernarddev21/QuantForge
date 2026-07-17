@@ -1,0 +1,8 @@
+ccxt
+pandas
+numpy
+python-dotenv
+SQLAlchemy
+requests
+loguru
+pyarrow

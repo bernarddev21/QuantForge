@@ -1,0 +1,9 @@
+DATABASE_PATH = "storage/database.db"
+
+EXCHANGE = "binance"
+
+TIMEFRAME = "1h"
+
+DEFAULT_SYMBOL = "BTC/USDT"
+
+DOWNLOAD_LIMIT = 1000
