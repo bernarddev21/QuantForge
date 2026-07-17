@@ -1,4 +1,4 @@
-from data.binance import BinanceClient
+from data.service import DataService
 from data.database import create_database
 from data.database import add_asset
 from data.database import add_candles
@@ -11,7 +11,7 @@ logger = get_logger()
 class QuantForgeEngine:
 
     def __init__(self):
-        self.client = BinanceClient()
+        self.data_service = DataService()
 
     def run(self):
 
@@ -24,7 +24,7 @@ class QuantForgeEngine:
             exchange="Binance"
         )
 
-        candles = self.client.get_candles()
+        candles = self.data_service.get_market_data()
 
         logger.info(f"Downloaded {len(candles)} candles")
 
