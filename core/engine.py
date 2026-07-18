@@ -1,3 +1,5 @@
+from config.settings import WATCHLIST
+
 from data.service import DataService
 from data.database import create_database
 from data.database import add_asset
@@ -19,19 +21,21 @@ class QuantForgeEngine:
 
         create_database()
 
-        add_asset(
-            symbol="BTC/USDT",
-            exchange="Binance"
-        )
+        market_data = self.data_service.get_multiple_assets(WATCHLIST)
 
-        candles = self.data_service.get_market_data()
+        for symbol, candles in market_data.items():
 
-        logger.info(f"Downloaded {len(candles)} candles")
+            add_asset(
+                symbol=symbol,
+                exchange="Binance"
+            )
 
-        add_candles(
-            asset_symbol="BTC/USDT",
-            candles=candles,
-            timeframe="1h"
-        )
+            logger.info(f"Downloaded {len(candles)} candles for {symbol}")
+
+            add_candles(
+                asset_symbol=symbol,
+                candles=candles,
+                timeframe="1h"
+            )
 
         logger.success("Engine complete.")

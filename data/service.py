@@ -17,3 +17,20 @@ class DataService:
             timeframe=timeframe,
             limit=limit
         )
+
+    def get_multiple_assets(
+        self,
+        symbols,
+        timeframe="1h",
+        limit=100
+    ):
+        market_data = {}
+
+        for symbol in symbols:
+            market_data[symbol] = self.get_market_data(
+                symbol=symbol,
+                timeframe=timeframe,
+                limit=limit
+            )
+
+        return market_data
