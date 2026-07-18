@@ -5,6 +5,9 @@ from data.database import create_database
 from data.database import add_asset
 from data.database import add_candles
 
+from research.statistics import StatisticsEngine
+from research.signals import SignalEngine
+
 from core.logger import get_logger
 
 logger = get_logger()
@@ -14,6 +17,8 @@ class QuantForgeEngine:
 
     def __init__(self):
         self.data_service = DataService()
+        self.statistics = StatisticsEngine()
+        self.signal_engine = SignalEngine()
 
     def run(self):
 
@@ -38,4 +43,28 @@ class QuantForgeEngine:
                 timeframe="1h"
             )
 
-        logger.success("Engine complete.")
+            df = self.statistics.calculate_returns(candles)
+            df = self.statistics.add_features(df)
+            signal = self.signal_engine.moving_average_signal(df)
+
+            logger.info(
+             f"{symbol}\n"
+             f"Signal: {signal}\n"
+             f"Average Return: {df['return'].mean():.6f}\n"
+             f"MA20: {df['ma20'].iloc[-1]:.2f}\n"
+             f"MA50: {df['ma50'].iloc[-1]:.2f}\n"
+             f"Volatility20: {df['volatility20'].iloc[-1]:.6f}"
+)
+              
+        logger.success("Engine complete.")    
+
+            
+
+             
+
+            
+
+            
+
+            
+        
