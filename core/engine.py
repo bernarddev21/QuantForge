@@ -67,6 +67,8 @@ class QuantForgeEngine:
              f"Win Rate: {performance['win_rate']:.2%}\n"
              f"Average Trade: {performance['average_return']:.2%}\n"
              f"Total Return: {performance['total_return']:.2%}"
+             f"\nBest Trade: {performance['best_trade']:.2%}"
+             f"\nWorst Trade: {performance['worst_trade']:.2%}"
 )
              
             
